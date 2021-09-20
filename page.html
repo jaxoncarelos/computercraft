@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        let command;
+        const ws = new WebSocket("ws://localhost:8081")
+        function moveTurtleForward(){
+            ws.send("return turtle.forward()")
+        }
+        function turnTurtleRight(){
+            ws.send("return turtle.turnRight()")
+        }
+        function turnTurtleLeft(){
+            ws.send("return turtle.turnLeft()")
+        }
+        function runCommand(){
+            console.log(command)
+            ws.send("return turtle." + command + "()")
+        }
+    </script>
+</head>
+<body>
+    <div class="main">
+        <button class="btn top" style="font-size: 50px" onclick="moveTurtleForward()">Move Turtle Forward</button>
+    </div>
+    <button class="btn btm right" style="font-size: 50px" on:click={turnTurtleLeft}>Move Turtle Left</button>
+    <button class="btn btm left" style="font-size: 50px" on:click={turnTurtleRight}>Move Turtle Right</button>
+    <input bind:value={command}>
+</body>
+<style>
+    .top{
+        position: absolute;
+        background: #333;
+        left: 150px;        
+    }
+    .btm{
+        position: absolute;
+        top: 70px;
+    }
+    .left{
+        left: 380px;
+    }
+    .btn{
+        border-radius: 15px;
+        background: #333;
+        color: white;
+    }
+</style>
+</html>
